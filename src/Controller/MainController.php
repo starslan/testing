@@ -8,11 +8,12 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class MainController
+class MainController extends AbstractController
 {
 
     /** @Route("/", name="main")*/
@@ -20,8 +21,18 @@ class MainController
     {
         $number = random_int(0, 10);
 
-        return new Response(
-            '<html><body>Lucky number: '.$number.'</body></html>'
-        );
+        return $this->render('Main/main.html.twig', ['max'=>$number]);
+    }
+
+    /**
+     * @Route("/adminka", name="adminka")
+     * @Security("is_granted('ROLE_ADMIN')")
+
+     */
+    public function admin()
+    {
+        $number = random_int(0, 10);
+
+        return $this->render('Main/main.html.twig', ['max'=>$number]);
     }
 }
