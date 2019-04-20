@@ -1,34 +1,59 @@
 <?php
-//src/Entity/User.php
+/**
+ * Created by PhpStorm.
+ * User: iam
+ * Date: 14.04.2019
+ * Time: 1:43
+ */
 
 namespace App\Entity;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @ORM\Entity
- * @ORM\Table(name="fosUser")
+ *
  */
-class User extends BaseUser
+class MotivationTestAnswer
 {
     /**
-     * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
-    public function __construct()
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
-        $this->attestation = new ArrayCollection();
+        return $this->id;
+    }
+
+    /**
+     * @ORM\Column(type="smallint")
+    */
+    private $result;
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * @param mixed $result
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
     }
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Attestation", mappedBy="user")
-    */
+     * @ORM\OneToMany(targetEntity="Attestation", mappedBy="answer")
+     */
     protected $attestation;
 
     /**
@@ -55,4 +80,5 @@ class User extends BaseUser
         }
         return $this;
     }
+
 }

@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Attestation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +21,9 @@ class MainController extends AbstractController
     public function number()
     {
         $number = random_int(0, 10);
-
+        $attestation = new Attestation();
+        $this->getDoctrine()->getManager()->persist($attestation);
+        dump($attestation, $this->getUser());
         return $this->render('Main/main.html.twig', ['max'=>$number]);
     }
 
