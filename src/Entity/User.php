@@ -22,36 +22,34 @@ class User extends BaseUser
 
     public function __construct()
     {
-        $this->attestation = new ArrayCollection();
+        parent::__construct();
+        $this->attestationExecution = new ArrayCollection();
     }
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Attestation", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="AttestationExecution", mappedBy="user")
     */
-    protected $attestation;
+    protected $attestationExecution;
 
     /**
      * @return mixed
      */
-    public function getAttestation()
+    public function getAttestationExecution()
     {
-        return $this->attestation;
+        return $this->attestationExecution;
     }
 
-    /**
-     * @param mixed $attestation
-     */
-    public function addAttestation(Attestation $attestation)
+    public function addAttestationExecution(AttestationExecution $attestationExecution)
     {
-        $this->attestation->add($attestation);
+        $this->attestationExecution->add($attestationExecution);
         return $this;
     }
 
-    public function removeAttestation(Attestation $attestation)
+    public function removeAttestation(AttestationExecution $attestationExecution)
     {
-        if($this->attestation->contains($attestation)){
-            $this->attestation->removeElement($attestation);
+        if($this->attestationExecution->contains($attestationExecution)){
+            $this->attestationExecution->removeElement($attestationExecution);
         }
         return $this;
     }

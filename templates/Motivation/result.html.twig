@@ -1,0 +1,19 @@
+<table>
+    <thead>
+    <tr>
+        <th>Вопрос</th>
+        <th>Ответ</th>
+        <th>Доп. ответ</th>
+    </tr>
+    </thead>
+    <tbody>
+
+{% for item in answer %}
+    <tr>
+        <td>{{ item.question.title }}</td>
+        <td>{{ item.result }}</td>
+        <td>{{ item.AdditionalField }}</td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>

@@ -1,5 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h1>Main page</h1>
-    just a number: {{ max }}
+    <span>testuser test@example.com pass</span>
+
+    {% if attestations is defined %}
+        {% for attestation in attestations %}
+            <br>
+            <a href="{{ path('test', {'id':attestation.id}) }}">{{  attestation.name }}</a>
+        {% endfor %}
+    {% endif %}
+    {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+            <h2 class="flash-{{ label }}">
+                {{ message }}
+            </h2>
+        {% endfor %}
+    {% endfor %}
+    {% if formView is defined %}
+        {{ formView| raw }}
+    {% endif %}
 {% endblock %}

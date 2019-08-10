@@ -2,6 +2,8 @@
 
 
 namespace App\Entity;
+
+use App\Interfaces\StrategyInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,22 +13,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Attestation
 {
+    public function __construct(){
+        $this->question = new ArrayCollection();
+    }
+    public  function __toString(){
+        return $this->getName();
+    }
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * Attestation constructor.
-     * @param $id
-     */
-    public function __construct()
-    {
-        $this->answer = new ArrayCollection();
-    }
-
 
     /**
      * @return mixed
@@ -87,43 +85,60 @@ class Attestation
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, inversedBy="attestation")
+     * @ORM\OneToMany(targetEntity="AttestationExecution", mappedBy="attestation")
      */
-    private $user;
+    protected $attestationExecution;
 
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getAttestationExecution()
     {
-        return $this->user;
+        return $this->attestationExecution;
     }
 
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
+    public function addAttestationExecution(AttestationExecution $attestationExecution)
     {
-        $this->user = $user;
-    }
-
-    protected $answer;
-
-    public function addAnswer($answer)
-    {
-        $this->answer->add($answer);
+        $this->attestationExecution->add($attestationExecution);
         return $this;
     }
 
-
-    public function removeAnswer($answer)
+    public function removeAttestationExecution(AttestationExecution $attestationExecution)
     {
-        if($this->answer->contains($answer)){
-            $this->answer->removeElement($answer);
+        if($this->attestationExecution->contains($attestationExecution)){
+            $this->attestationExecution->removeElement($attestationExecution);
         }
         return $this;
     }
 
+    protected $strategy;
 
+    /**
+     * @return mixed
+     */
+    public function getStrategy() :StrategyInterface
+    {
+        return $this->strategy;
+    }
 
+    /**
+     * @param mixed $strategyInstance
+     */
+    public function setStrategy(StrategyInterface $strategyInstance): void
+    {
+        $this->strategy = $strategyInstance;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="attestation")
+     */
+    protected $question;
+
+    /**
+     * @return mixed
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
 }

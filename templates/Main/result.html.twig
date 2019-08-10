@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h3>Результат: {{ user }}</h3>
+    {% for item in result %}{{ dump(result) }}
+        {{ item.attestation }}
+        {% if item.attestationExecution %}
+            {{ item.attestationExecution.view| raw }}
+        {% else %}
+            {{ item.attestation.title~' не пройдена' }}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

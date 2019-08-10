@@ -7,78 +7,33 @@
  */
 
 namespace App\Entity;
+use App\Interfaces\AnswerInterface;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  *
  */
-class MotivationTestAnswer
+class MotivationTestAnswer extends Answer implements AnswerInterface
 {
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * @ORM\Column(type="smallint")
-    */
-    private $result;
+     */
+    private $additionalField;
+
 
     /**
      * @return mixed
      */
-    public function getResult()
+    public function getAdditionalField()
     {
-        return $this->result;
+        return $this->additionalField;
     }
 
     /**
-     * @param mixed $result
+     * @param mixed $additionalField
      */
-    public function setResult($result)
+    public function setAdditionalField($additionalField)
     {
-        $this->result = $result;
+        $this->additionalField = $additionalField;
     }
-
-
-    /**
-     * @ORM\OneToMany(targetEntity="Attestation", mappedBy="answer")
-     */
-    protected $attestation;
-
-    /**
-     * @return mixed
-     */
-    public function getAttestation()
-    {
-        return $this->attestation;
-    }
-
-    /**
-     * @param mixed $attestation
-     */
-    public function addAttestation(Attestation $attestation)
-    {
-        $this->attestation->add($attestation);
-        return $this;
-    }
-
-    public function removeAttestation(Attestation $attestation)
-    {
-        if($this->attestation->contains($attestation)){
-            $this->attestation->removeElement($attestation);
-        }
-        return $this;
-    }
-
 }
