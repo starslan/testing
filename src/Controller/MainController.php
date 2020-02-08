@@ -32,7 +32,7 @@ class MainController extends AbstractController
 
     /**
      * @Route("/test/{id}", name="test", )
-     * @Security("is_granted('ROLE_ADMIN')")
+//     * @Security("is_granted('ROLE_ADMIN')")
 
      */
     public function test(Request $request, Attestation $attestation = null)
